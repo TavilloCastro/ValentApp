@@ -52,11 +52,13 @@
     }
 
     #no {
-      position: absolute;
+      position: fixed;
       background: white;
       color: #333;
       border: 2px solid #ccc;
       font-size: 1.2rem;
+      z-index: 9999;
+      transition: 0.03s;
     }
 
     .brand {
@@ -124,33 +126,73 @@
   <script>
     const noButton = document.getElementById("no");
 
-    noButton.addEventListener("mouseenter", () => {
-      const x = Math.random() * 700;
-      const y = Math.random() * 350;
+    function moveNoButton() {
+      const margin = 20;
+
+      const maxX = window.innerWidth - noButton.offsetWidth - margin;
+      const maxY = window.innerHeight - noButton.offsetHeight - margin;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
 
       noButton.style.left = x + "px";
       noButton.style.top = y + "px";
+    }
+
+    // DESKTOP: huye incluso al acercarse
+    document.addEventListener("mousemove", (e) => {
+      const rect = noButton.getBoundingClientRect();
+
+      const distance = Math.hypot(
+        e.clientX - (rect.left + rect.width / 2),
+        e.clientY - (rect.top + rect.height / 2)
+      );
+
+      if (distance < 120) {
+        moveNoButton();
+      }
+    });
+
+    // MOBILE: huye apenas el dedo se acerca
+    document.addEventListener("touchmove", (e) => {
+      const touch = e.touches[0];
+      const rect = noButton.getBoundingClientRect();
+
+      const distance = Math.hypot(
+        touch.clientX - (rect.left + rect.width / 2),
+        touch.clientY - (rect.top + rect.height / 2)
+      );
+
+      if (distance < 140) {
+        moveNoButton();
+      }
+    }, { passive: true });
+
+    // BACKUP: si por milagro lo tocan
+    noButton.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNoButton();
     });
 
     function yesClicked() {
       document.body.innerHTML = `
-        <div style="
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-          align-items:center;
-          height:100vh;
-          background:#ffe6eb;
-          font-family:Arial;
-          text-align:center;">
-          <h1 style="font-size:3rem;color:#d6336c;">
-            Woohoo!! 💘😍
-          </h1>
-          <p style="font-size:1.5rem;">
-            Nos vemos el sabado💕
-          </p>
-        </div>
-      `;
+      <div style="
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        background:#ffccd5;
+        font-family:Arial;
+        text-align:center;">
+        <h1 style="font-size:3rem;color:#d6336c;">
+          Woohooo!! 💘😍
+        </h1>
+        <p style="font-size:1.5rem;">
+          Nos vemos el Sabadooo 💕
+        </p>
+      </div>
+    `;
     }
   </script>
 
