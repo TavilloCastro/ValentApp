@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Will you be my Valentine? 💘</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta property="og:title" content="Will you be my Valentine? 💘">
+  <meta property="og:description" content="A special surprise made with love 💕">
+  <meta property="og:image" content="favicon.png">
+
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffe6eb;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #d6336c;
+      margin-bottom: 40px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 200px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1.5rem;
+      padding: 15px 35px;
+      transition: 0.05s;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+      border: 2px solid #ccc;
+      font-size: 1.8rem;
+    }
+
+    #no {
+      position: absolute;
+      background: white;
+      color: #333;
+      border: 2px solid #ccc;
+      font-size: 1.2rem;
+    }
+
+    .brand {
+      position: fixed;
+      bottom: 14px;
+      right: 18px;
+
+      font-size: 0.75rem;
+      font-family: Arial, sans-serif;
+      letter-spacing: 0.5px;
+
+      color: white;
+      padding: 4px 8px;
+      border: 1px solid black;
+      border-radius: 8px;
+
+      background: rgba(127, 9, 9, 0.671);
+      pointer-events: none;
+
+      opacity: 0;
+      animation: brandFadeIn 1.2s ease forwards;
+
+    }
+
+    @keyframes brandFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .brand {
+        font-size: 0.65rem;
+        padding: 3px 6px;
+        bottom: 10px;
+        right: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Will you be my Valentine? 👀</h1>
+
+    <div class="buttons">
+      <button id="yes" onclick="yesClicked()">Yes 🫶🏼</button>
+      <button id="no">No 😅</button>
+    </div>
+  </div>
+
+  <div class="brand">ValentApp v1.0 · By Tavo Castro</div>
+
+  <script>
+    const noButton = document.getElementById("no");
+
+    noButton.addEventListener("mouseenter", () => {
+      const x = Math.random() * 700;
+      const y = Math.random() * 350;
+
+      noButton.style.left = x + "px";
+      noButton.style.top = y + "px";
+    });
+
+    function yesClicked() {
+      document.body.innerHTML = `
+        <div style="
+          display:flex;
+          flex-direction:column;
+          justify-content:center;
+          align-items:center;
+          height:100vh;
+          background:#ffe6eb;
+          font-family:Arial;
+          text-align:center;">
+          <h1 style="font-size:3rem;color:#d6336c;">
+            Woohoo!! 💘😍
+          </h1>
+          <p style="font-size:1.5rem;">
+            Nos vemos el sabado💕
+          </p>
+        </div>
+      `;
+    }
+  </script>
+
+</body>
+
+</html>
